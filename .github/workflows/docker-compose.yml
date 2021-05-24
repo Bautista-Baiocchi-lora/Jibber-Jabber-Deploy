@@ -1,0 +1,15 @@
+name: Docker Compose CI
+
+
+on:
+  push:
+    branches: [ master, dev, prod ]
+    
+    
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the stack
+        run: docker-compose up -d
