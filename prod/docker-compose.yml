@@ -13,7 +13,7 @@ volumes:
 services:
   auth:
     container_name: jib-jab-auth
-    image: jib-jab-auth
+    image: bautistabaiocchi/jib-jab-auth:latest
     ports:
       - "9000:9000"
     networks:
