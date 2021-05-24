@@ -1,0 +1,58 @@
+version: "3.9"
+
+networks:
+  jib-jab-network:
+    external: false
+    name: "jib-jab-network"
+
+volumes:
+  jib-jab-pgdata:
+    external: true
+    name: "jib-jab-pgdata"
+
+services:
+  auth:
+    container_name: jib-jab-auth
+    image: jib-jab-auth
+    ports:
+      - "9000:9000"
+    networks:
+      - jib-jab-network
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      POSTGRES_DB: $POSTGRES_DB
+      POSTGRES_DB_HOST: $POSTGRES_DB_HOST
+    depends_on:
+      - "pg-db"
+  pg-db:
+    container_name: jib-jab-pg
+    image: postgres:12
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      POSTGRES_DB: $POSTGRES_DB
+    volumes:
+      - jib-jab-pgdata:/usr/app/data
+    ports:
+      - "5432:5432"
+    networks:
+      - jib-jab-network
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    env_file:
+      - .env
+    environment:
+      PGADMIN_DEFAULT_EMAIL: $PGADMIN_DEFAULT_EMAIL
+      PGADMIN_DEFAULT_PASSWORD: $PGADMIN_DEFAULT_PASSWORD
+    networks:
+      - jib-jab-network
+    ports:
+      - "5050:80"
+    depends_on:
+      - "pg-db"
