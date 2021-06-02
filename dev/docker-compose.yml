@@ -27,6 +27,23 @@ services:
       POSTGRES_DB_HOST: $POSTGRES_DB_HOST
     depends_on:
       - "pg-db"
+  api:
+    container_name: jib-jab-api
+    image: bautistabaiocchi/jib-jab-api:latest
+    ports:
+      - "9001:9001"
+    networks:
+      - jib-jab-network
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      POSTGRES_DB: $POSTGRES_DB
+      POSTGRES_DB_HOST: $POSTGRES_DB_HOST
+    depends_on:
+      - "pg-db"
+      - "auth"
   pg-db:
     container_name: jib-jab-pg
     image: postgres:12
