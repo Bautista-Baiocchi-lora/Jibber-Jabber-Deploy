@@ -13,7 +13,7 @@ volumes:
 services:
   auth:
     container_name: jib-jab-auth
-    image: bautistabaiocchi/jib-jab-auth:latest
+    image: bautistabaiocchi/jib-jab-auth:dev-latest
     ports:
       - "9000:9000"
     networks:
@@ -21,15 +21,13 @@ services:
     env_file:
       - .env
     environment:
-      POSTGRES_USER: $POSTGRES_USER
-      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
-      POSTGRES_DB: $POSTGRES_DB
-      POSTGRES_DB_HOST: $POSTGRES_DB_HOST
+      POSTGRES_DB: dev
+      POSTGRES_DB_HOST: pg-db
     depends_on:
       - "pg-db"
   api:
     container_name: jib-jab-api
-    image: bautistabaiocchi/jib-jab-api:latest
+    image: bautistabaiocchi/jib-jab-api:dev-latest
     ports:
       - "9001:9001"
     networks:
@@ -37,10 +35,8 @@ services:
     env_file:
       - .env
     environment:
-      POSTGRES_USER: $POSTGRES_USER
-      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
-      POSTGRES_DB: $POSTGRES_DB
-      POSTGRES_DB_HOST: $POSTGRES_DB_HOST
+      POSTGRES_DB: dev
+      POSTGRES_DB_HOST: pg-db
     depends_on:
       - "pg-db"
       - "auth"
@@ -50,9 +46,7 @@ services:
     env_file:
       - .env
     environment:
-      POSTGRES_USER: $POSTGRES_USER
-      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
-      POSTGRES_DB: $POSTGRES_DB
+      POSTGRES_DB: dev
     volumes:
       - jib-jab-pgdata:/usr/app/data
     ports:
@@ -64,9 +58,6 @@ services:
     image: dpage/pgadmin4
     env_file:
       - .env
-    environment:
-      PGADMIN_DEFAULT_EMAIL: $PGADMIN_DEFAULT_EMAIL
-      PGADMIN_DEFAULT_PASSWORD: $PGADMIN_DEFAULT_PASSWORD
     networks:
       - jib-jab-network
     ports:
