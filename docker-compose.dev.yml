@@ -11,6 +11,18 @@ volumes:
     name: "jib-jab-pgdata"
 
 services:
+  client:
+    container_name: jib-jab-client
+    image: bautistabaiocchi/jib-jab-client:dev-latest
+    ports:
+      - "3000:3000"
+    networks:
+      - jib-jab-network
+    env_file:
+      - .env
+    depends_on:
+      - "auth"
+      - "api"
   auth:
     container_name: jib-jab-auth
     image: bautistabaiocchi/jib-jab-auth:dev-latest
