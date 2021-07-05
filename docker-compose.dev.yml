@@ -12,10 +12,10 @@ volumes:
 
 services:
   client:
-    container_name: jib-jab-client
+    container_name: "jib-jab-client"
     image: bautistabaiocchi/jib-jab-client:dev-latest
     ports:
-      - "80:3000"
+      - "3000:3000"
 #    networks:
 #      - jib-jab-network
     env_file:
@@ -24,7 +24,7 @@ services:
       - "auth"
       - "api"
   auth:
-    container_name: jib-jab-auth
+    container_name: "jib-jab-auth"
     image: bautistabaiocchi/jib-jab-auth:dev-latest
     ports:
       - "9000:9000"
@@ -38,7 +38,7 @@ services:
     depends_on:
       - "pg-db"
   api:
-    container_name: jib-jab-api
+    container_name: "jib-jab-api"
     image: bautistabaiocchi/jib-jab-api:dev-latest
     ports:
       - "9001:9001"
@@ -53,7 +53,7 @@ services:
       - "pg-db"
       - "auth"
   pg-db:
-    container_name: jib-jab-pg
+    container_name: "jib-jab-pg"
     image: postgres:12
     env_file:
       - .env
@@ -66,7 +66,7 @@ services:
 #    networks:
 #      - jib-jab-network
   pgadmin:
-    container_name: jib-jab-pgadmin
+    container_name: "jib-jab-pgadmin"
     image: dpage/pgadmin4
     env_file:
       - .env
@@ -77,7 +77,7 @@ services:
     depends_on:
       - "pg-db"
   proxy:
-    container_name: jib-jab-reverse-proxy
+    container_name: "jib-jab-reverse-proxy"
     image: nginx
 #    networks:
 #      - jib-jab-network
@@ -85,4 +85,8 @@ services:
       - "8080:80"
     volumes:
       - ~/projects/faculty/ingsis/Jibber-Jabber-Deploy/conf.d:/etc/nginx/conf.d:ro
+    depends_on:
+      - "auth"
+      - "api"
+      - "client"
 
