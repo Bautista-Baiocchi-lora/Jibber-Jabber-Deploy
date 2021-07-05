@@ -84,7 +84,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ~/projects/faculty/ingsis/Jibber-Jabber-Deploy/conf.d:/etc/nginx/conf.d:ro
+      - ./conf.d:/etc/nginx/conf.d:ro
     depends_on:
       - "auth"
       - "api"
