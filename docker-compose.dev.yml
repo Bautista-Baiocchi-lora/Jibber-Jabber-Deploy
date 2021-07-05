@@ -13,7 +13,7 @@ volumes:
 services:
   client:
     container_name: "jib-jab-client"
-    image: bautistabaiocchi/jib-jab-client:dev-fast-latest
+    image: bautistabaiocchi/jib-jab-client:dev-latest
     ports:
       - "3000:3000"
 #    networks:
