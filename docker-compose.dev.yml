@@ -76,13 +76,13 @@ services:
       - "5050:80"
     depends_on:
       - "pg-db"
-#  proxy:
-#    container_name: jib-jab-reverse-proxy
-#    image: nginx
-##    networks:
-##      - jib-jab-network
-#    ports:
-#      - "8080:80"
-#    volumes:
-#      - ~/projects/faculty/ingsis/Jibber-Jabber-Deploy/conf.d:/etc/nginx/conf.d:ro
+  proxy:
+    container_name: jib-jab-reverse-proxy
+    image: nginx
+#    networks:
+#      - jib-jab-network
+    ports:
+      - "8080:80"
+    volumes:
+      - ~/projects/faculty/ingsis/Jibber-Jabber-Deploy/conf.d:/etc/nginx/conf.d:ro
 
