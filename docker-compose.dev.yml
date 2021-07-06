@@ -86,7 +86,7 @@ services:
     environment:
       CERTBOT_EMAIL: elias.leonov@ing.austral.edu.ar
       ENVSUBST_VARS: FQDN
-        FQDN: devjibjabingsis.ddns.net
+      FQDN: devjibjabingsis.ddns.net
     volumes:
       - ./conf.d:/etc/nginx/user.conf.d:ro
       - letsencrypt:/etc/letsencrypt
