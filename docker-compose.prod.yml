@@ -1,14 +1,10 @@
 version: "3.9"
 
-networks:
-  jib-jab-network:
-    external: false
-    name: "jib-jab-network"
-
 volumes:
   jib-jab-pgdata:
     external: true
     name: "jib-jab-pgdata"
+  letsencrypt:
 
 services:
   client:
@@ -16,8 +12,6 @@ services:
     image: bautistabaiocchi/jib-jab-client:latest
     ports:
       - "3000:3000"
-    networks:
-      - jib-jab-network
     env_file:
       - .env
     depends_on:
@@ -28,8 +22,6 @@ services:
     image: bautistabaiocchi/jib-jab-auth:latest
     ports:
       - "9000:9000"
-    networks:
-      - jib-jab-network
     env_file:
       - .env
     environment:
@@ -42,8 +34,6 @@ services:
     image: bautistabaiocchi/jib-jab-api:latest
     ports:
       - "9001:9001"
-    networks:
-      - jib-jab-network
     env_file:
       - .env
     environment:
@@ -63,16 +53,29 @@ services:
       - jib-jab-pgdata:/usr/app/data
     ports:
       - "5432:5432"
-    networks:
-      - jib-jab-network
   pgadmin:
     container_name: jib-jab-pgadmin
     image: dpage/pgadmin4
     env_file:
       - .env
-    networks:
-      - jib-jab-network
     ports:
       - "5050:80"
     depends_on:
       - "pg-db"
+  proxy:
+    restart: unless-stopped
+    image: staticfloat/nginx-certbot
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      CERTBOT_EMAIL: elias.leonov@ing.austral.edu.ar
+      ENVSUBST_VARS: FQDN
+      FQDN: devjibjabingsis.ddns.net
+    volumes:
+      - ./conf.d:/etc/nginx/user.conf.d:ro
+      - letsencrypt:/etc/letsencrypt
+    depends_on:
+      - "auth"
+      - "api"
+      - "client"
