@@ -69,7 +69,7 @@ services:
       - "80:80"
       - "443:443"
     environment:
-      CERTBOT_EMAIL: elias.leonov@ing.austral.edu.ar
+      CERTBOT_EMAIL: eliasleonov99@gmail.com
       ENVSUBST_VARS: FQDN
       FQDN: prodibjabingsis.ddns.net
     volumes:
