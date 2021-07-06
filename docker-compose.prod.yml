@@ -73,7 +73,7 @@ services:
       ENVSUBST_VARS: FQDN
       FQDN: prodibjabingsis.ddns.net
     volumes:
-      - ./conf.d:/etc/nginx/user.conf.d:ro
+      - ./conf-prod.d:/etc/nginx/user.conf.d:ro
       - letsencrypt:/etc/letsencrypt
     depends_on:
       - "auth"
