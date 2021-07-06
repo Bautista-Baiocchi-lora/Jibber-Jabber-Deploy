@@ -71,7 +71,7 @@ services:
     environment:
       CERTBOT_EMAIL: eliasleonov99@gmail.com
       ENVSUBST_VARS: FQDN
-      FQDN: prodibjabingsis.ddns.net
+      FQDN: prodjibjabingsis.ddns.net
     volumes:
       - ./conf-prod.d:/etc/nginx/user.conf.d:ro
       - letsencrypt:/etc/letsencrypt
