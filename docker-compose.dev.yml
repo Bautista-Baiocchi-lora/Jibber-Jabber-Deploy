@@ -79,17 +79,17 @@ services:
       - "pg-db"
   proxy:
     restart: unless-stopped
-      image: staticfloat/nginx-certbot
-      ports:
-        - "80:80"
-        - "443:443"
-      environment:
-        CERTBOT_EMAIL: elias.leonov@ing.austral.edu.ar
-        ENVSUBST_VARS: FQDN
-          FQDN: devjibjabingsis.ddns.net
-      volumes:
-        - ./conf.d:/etc/nginx/user.conf.d:ro
-        - letsencrypt:/etc/letsencrypt
+    image: staticfloat/nginx-certbot
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      CERTBOT_EMAIL: elias.leonov@ing.austral.edu.ar
+      ENVSUBST_VARS: FQDN
+        FQDN: devjibjabingsis.ddns.net
+    volumes:
+      - ./conf.d:/etc/nginx/user.conf.d:ro
+      - letsencrypt:/etc/letsencrypt
 #  proxy:
 #    container_name: "jib-jab-reverse-proxy"
 #    image: nginx
