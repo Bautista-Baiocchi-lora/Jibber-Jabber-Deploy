@@ -20,14 +20,14 @@ services:
       - "chat"
   chat:
     container_name: "jib-jab-message"
-      image: bautistabaiocchi/jib-jab-message:dev-latest
-      ports:
-        - "9002:9002"
-      env_file:
-        - .env
-      depends_on:
-        - "auth"
-        - "api"
+    image: bautistabaiocchi/jib-jab-message:dev-latest
+    ports:
+      - "9002:9002"
+    env_file:
+      - .env
+    depends_on:
+      - "auth"
+      - "api"
   auth:
     container_name: "jib-jab-auth"
     image: bautistabaiocchi/jib-jab-auth:dev-latest

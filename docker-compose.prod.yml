@@ -42,6 +42,16 @@ services:
     depends_on:
       - "pg-db"
       - "auth"
+  chat:
+    container_name: "jib-jab-message"
+    image: bautistabaiocchi/jib-jab-message:latest
+    ports:
+      - "9002:9002"
+    env_file:
+      - .env
+    depends_on:
+      - "auth"
+      - "api"
   pg-db:
     container_name: jib-jab-pg
     image: postgres:12
