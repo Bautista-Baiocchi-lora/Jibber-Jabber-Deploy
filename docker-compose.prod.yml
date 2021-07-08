@@ -8,7 +8,7 @@ volumes:
 
 services:
   client:
-    container_name: jib-jab-client
+    container_name: "jib-jab-client"
     image: bautistabaiocchi/jib-jab-client:latest
     ports:
       - "3000:3000"
@@ -17,8 +17,9 @@ services:
     depends_on:
       - "auth"
       - "api"
+      - "chat"
   auth:
-    container_name: jib-jab-auth
+    container_name: "jib-jab-auth"
     image: bautistabaiocchi/jib-jab-auth:latest
     ports:
       - "9000:9000"
@@ -30,7 +31,7 @@ services:
     depends_on:
       - "pg-db"
   api:
-    container_name: jib-jab-api
+    container_name: "jib-jab-api"
     image: bautistabaiocchi/jib-jab-api:latest
     ports:
       - "9001:9001"
@@ -53,7 +54,7 @@ services:
       - "auth"
       - "api"
   pg-db:
-    container_name: jib-jab-pg
+    container_name: "jib-jab-pg"
     image: postgres:12
     env_file:
       - .env
@@ -64,7 +65,7 @@ services:
     ports:
       - "5432:5432"
   pgadmin:
-    container_name: jib-jab-pgadmin
+    container_name: "jib-jab-pgadmin"
     image: dpage/pgadmin4
     env_file:
       - .env
@@ -89,3 +90,4 @@ services:
       - "auth"
       - "api"
       - "client"
+      - "chat"
